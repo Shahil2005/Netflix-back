@@ -1,42 +1,41 @@
-import express, { application } from "express"; //jsmodules
-import authRoutes from "./routes/auth.route.js";
-import movieRoutes from "./routes/movie.route.js";
-import tvRoutes from "./routes/tv.route.js";
-import searchRoutes from "./routes/search.route.js";
-
-import cookieParser from "cookie-parser";
-
-import { protectRoute } from "./middleware/protectRoute.js";
-import { ENV_VARS } from "./config/envVars.js";
-import { connectDB } from "./config/db.js";
+// Import dependencies
+import express from 'express'; // or 'const express = require('express');' for CommonJS
+import cors from 'cors';  // Import the CORS middleware
+import authRoutes from './routes/auth.route.js';  // Example route import
+import movieRoutes from './routes/movie.route.js'; // Example route import
+import tvRoutes from './routes/tv.route.js'; // Example route import
+import searchRoutes from './routes/search.route.js'; // Example route import
+import cookieParser from 'cookie-parser';  // Cookie parsing if needed
+import { connectDB } from './config/db.js'; // Database connection (if applicable)
 
 const app = express();
-const cors = require("cors");
 
+// CORS Configuration
 const corsOptions = {
-  origin: ["https://netflix-front-chi.vercel.app", "http://localhost:5173"], // Add Vercel and local dev URL
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,  // Allow cookies if required
+  origin: [
+    'https://your-vercel-frontend-url.vercel.app',  // Vercel frontend URL
+    'http://localhost:5173',  // Local development URL
+  ],
+  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
+  credentials: true,  // Allow cookies if needed
 };
 
-app.use(cors(corsOptions)); // Apply CORS middleware
+// Apply the CORS middleware globally
+app.use(cors(corsOptions));
 
+// Body parser middleware to parse JSON requests
+app.use(express.json());  // To parse JSON request body
+app.use(cookieParser());  // To parse cookies
 
+// Your routes
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/movie', movieRoutes);
+app.use('/api/v1/tv', tvRoutes);
+app.use('/api/v1/search', searchRoutes);
 
-
-
-
-const PORT = ENV_VARS.PORT;
-app.use(express.json()); //will allow us to parse req.body
-app.use(cookieParser());
-
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/movie", protectRoute, movieRoutes);
-app.use("/api/v1/tv", protectRoute, tvRoutes);
-app.use("/api/v1/search", protectRoute, searchRoutes);
-
-
-app.listen(8000, () => {
-  console.log("Server started at https://localhost:" + 8000);
-  connectDB();
+// Start the server and connect to DB
+const PORT = process.env.PORT || 8000; // Or use your configured ENV variable
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+  connectDB();  // Ensure DB connection
 });
