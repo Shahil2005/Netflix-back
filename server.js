@@ -20,6 +20,7 @@ app.use("/api/v1/movie", protectRoute, movieRoutes);
 app.use("/api/v1/tv", protectRoute, tvRoutes);
 app.use("/api/v1/search", protectRoute, searchRoutes);
 
+
 app.listen(8000, () => {
   console.log("Server started at https://localhost:" + 8000);
   connectDB();
