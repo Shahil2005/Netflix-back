@@ -11,6 +11,21 @@ import { ENV_VARS } from "./config/envVars.js";
 import { connectDB } from "./config/db.js";
 
 const app = express();
+const cors = require("cors");
+
+const corsOptions = {
+  files: ["https://netflix-front-chi.vercel.app", "http://localhost:5173"], // Add Vercel and local dev URL
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,  // Allow cookies if required
+};
+
+app.use(cors(corsOptions)); // Apply CORS middleware
+
+
+
+
+
+
 const PORT = ENV_VARS.PORT;
 app.use(express.json()); //will allow us to parse req.body
 app.use(cookieParser());
