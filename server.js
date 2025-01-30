@@ -14,7 +14,7 @@ const app = express();
 const cors = require("cors");
 
 const corsOptions = {
-  files: ["https://netflix-front-chi.vercel.app", "http://localhost:5173"], // Add Vercel and local dev URL
+  origin: ["https://netflix-front-chi.vercel.app", "http://localhost:5173"], // Add Vercel and local dev URL
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,  // Allow cookies if required
 };
