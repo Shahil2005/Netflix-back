@@ -10,18 +10,18 @@ import { connectDB } from './config/db.js'; // Database connection (if applicabl
 
 const app = express();
 
-// CORS Configuration
-const corsOptions = {
-  origin: [
-    'https://your-vercel-frontend-url.vercel.app',  // Vercel frontend URL
-    'http://localhost:5173',  // Local development URL
-  ],
-  methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
-  credentials: true,  // Allow cookies if needed
-};
+// // CORS Configuration
+// const corsOptions = {
+//   origin: [
+//     'https://netflix-front-chi.vercel.app/',  // Vercel frontend URL
+//     'http://localhost:5173',  // Local development URL
+//   ],
+//   methods: 'GET,POST,PUT,DELETE',  // Allow these HTTP methods
+//   credentials: true,  // Allow cookies if needed
+// };
 
-// Apply the CORS middleware globally
-app.use(cors(corsOptions));
+// // Apply the CORS middleware globally
+app.use(cors());
 
 // Body parser middleware to parse JSON requests
 app.use(express.json());  // To parse JSON request body
